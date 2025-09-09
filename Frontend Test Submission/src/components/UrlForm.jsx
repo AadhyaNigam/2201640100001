@@ -1,34 +1,29 @@
-import React from "react";
-import { Grid, TextField } from "@mui/material";
+import React, { useState } from "react";
+import { TextField, Button, Box } from "@mui/material";
 
-export default function UrlForm({ entry, index, handleChange }) {
+export default function UrlForm({ onAdd }) {
+  const [input, setInput] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (input.trim()) {
+      onAdd(input);
+      setInput("");
+    }
+  };
+
   return (
-    <Grid container spacing={2} style={{ marginBottom: "1rem" }}>
-      <Grid item xs={12} md={5}>
-        <TextField
-          label="Long URL"
-          fullWidth
-          value={entry.longUrl}
-          onChange={(e) => handleChange(index, "longUrl", e.target.value)}
-        />
-      </Grid>
-      <Grid item xs={12} md={3}>
-        <TextField
-          label="Validity (minutes)"
-          type="number"
-          fullWidth
-          value={entry.validity}
-          onChange={(e) => handleChange(index, "validity", e.target.value)}
-        />
-      </Grid>
-      <Grid item xs={12} md={3}>
-        <TextField
-          label="Preferred Shortcode"
-          fullWidth
-          value={entry.shortcode}
-          onChange={(e) => handleChange(index, "shortcode", e.target.value)}
-        />
-      </Grid>
-    </Grid>
+    <Box component="form" onSubmit={handleSubmit} sx={{ mb: 2 }}>
+      <TextField
+        label="Enter URL"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        fullWidth
+        margin="normal"
+      />
+      <Button type="submit" variant="contained">
+        Shorten
+      </Button>
+    </Box>
   );
 }

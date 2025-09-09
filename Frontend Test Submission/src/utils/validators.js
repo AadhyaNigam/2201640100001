@@ -1,10 +1,8 @@
-export const isValidUrl = (url) => {
+export function isValidUrl(url) {
   try {
     new URL(url);
     return true;
   } catch {
     return false;
   }
-};
-
-export const isValidShortCode = (code) => /^[a-zA-Z0-9]{3,10}$/.test(code);
+}

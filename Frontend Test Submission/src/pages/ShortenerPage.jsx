@@ -1,38 +1,57 @@
 import React, { useState } from "react";
-import { Card, CardContent, Typography } from "@mui/material";
-import UrlForm from "../components/UrlForm";
-import { logger } from "logging-middleware"; // ✅ fixed import
 
-export default function ShortenerPage() {
-  const [shortUrl, setShortUrl] = useState("");
+function ShortenerPage() {
+  const [inputUrl, setInputUrl] = useState("");
+  const [shortenedUrls, setShortenedUrls] = useState([]);
 
-  // Use logger when the page loads
-  React.useEffect(() => {
-    logger("ShortenerPage loaded");
-  }, []);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const handleShorten = (url) => {
-    // Example shortener logic (fake for now)
-    const newShort = `http://short.ly/${Math.random().toString(36).substring(7)}`;
-    setShortUrl(newShort);
+    const response = await fetch("http://localhost:5000/shorten", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        url: inputUrl,
+        code: "sAWTuR" // sending access code
+      }),
+    });
 
-    // Log the event
-    logger(`URL shortened: ${url} → ${newShort}`);
+    const data = await response.json();
+    if (data.shortUrl) {
+      setShortenedUrls([...shortenedUrls, data.shortUrl]);
+      setInputUrl("");
+    } else {
+      alert(data.error || "Something went wrong");
+    }
   };
 
   return (
-    <Card>
-      <CardContent>
-        <Typography variant="h5" gutterBottom>
-          URL Shortener
-        </Typography>
-        <UrlForm onShorten={handleShorten} />
-        {shortUrl && (
-          <Typography color="primary" sx={{ mt: 2 }}>
-            Shortened URL: <a href={shortUrl}>{shortUrl}</a>
-          </Typography>
-        )}
-      </CardContent>
-    </Card>
+    <div>
+      <form onSubmit={handleSubmit} style={{ marginBottom: "1rem" }}>
+        <input
+          type="text"
+          value={inputUrl}
+          onChange={(e) => setInputUrl(e.target.value)}
+          placeholder="Enter URL"
+          style={{ padding: "0.5rem", width: "300px" }}
+        />
+        <button type="submit" style={{ padding: "0.5rem", marginLeft: "0.5rem" }}>
+          Shorten
+        </button>
+      </form>
+
+      <h3>Shortened URLs</h3>
+      <ul>
+        {shortenedUrls.map((url, idx) => (
+          <li key={idx}>
+            <a href={url} target="_blank" rel="noopener noreferrer">
+              {url}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
+
+export default ShortenerPage;

@@ -1,7 +1,14 @@
-export const loadShortened = () => {
-  return JSON.parse(localStorage.getItem("shortenedUrls")) || [];
-};
+export function saveUrl(shortCode, longUrl) {
+  const urls = JSON.parse(localStorage.getItem("urls") || "{}");
+  urls[shortCode] = longUrl;
+  localStorage.setItem("urls", JSON.stringify(urls));
+}
 
-export const saveShortened = (list) => {
-  localStorage.setItem("shortenedUrls", JSON.stringify(list));
-};
+export function getUrl(shortCode) {
+  const urls = JSON.parse(localStorage.getItem("urls") || "{}");
+  return urls[shortCode] || null;
+}
+
+export function getAllUrls() {
+  return JSON.parse(localStorage.getItem("urls") || "{}");
+}

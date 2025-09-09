@@ -1,31 +1,13 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { AppBar, Toolbar, Button, Container } from "@mui/material";
-import ShortenerPage from "./pages/ShortenerPage";
-import StatisticsPage from "./pages/StatisticsPage";
-import RedirectRouter from "./pages/RedirectRouter";
+import ShortenerPage from "./pages/ShortenerPage.jsx";
 
-export default function App() {
+function App() {
   return (
-    <Router>
-      <AppBar position="static">
-        <Toolbar>
-          <Button color="inherit" component={Link} to="/">
-            Shortener
-          </Button>
-          <Button color="inherit" component={Link} to="/stats">
-            Statistics
-          </Button>
-        </Toolbar>
-      </AppBar>
-
-      <Container style={{ marginTop: "2rem" }}>
-        <Routes>
-          <Route path="/" element={<ShortenerPage />} />
-          <Route path="/stats" element={<StatisticsPage />} />
-          <Route path="/:code" element={<RedirectRouter />} />
-        </Routes>
-      </Container>
-    </Router>
+    <div style={{ padding: "2rem", fontFamily: "Arial" }}>
+      <h1>URL Shortener Web App</h1>
+      <ShortenerPage />
+    </div>
   );
 }
+
+export default App;
