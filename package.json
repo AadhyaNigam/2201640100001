@@ -1,0 +1,13 @@
+{
+  "name": "url-shortener-webapp",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "concurrently \"npm run start --prefix \\\"Frontend Test Submission\\\"\" \"npm run server --prefix logging-middleware\"",
+    "server": "node server.js --prefix logging-middleware",
+    "frontend": "npm run start --prefix 'Frontend Test Submission'"
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.0"
+  }
+}

@@ -2,57 +2,53 @@ import React, { useState } from "react";
 
 function ShortenerPage() {
   const [url, setUrl] = useState("");
-  const [shortUrls, setShortUrls] = useState([]);
-  const ACCESS_CODE = "sAWTuR"; // 👈 access code
+  const [shortened, setShortened] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("/shorten", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url, accessCode: ACCESS_CODE }),
-      });
+      const response = await fetch("http://localhost:5000/shorten", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ url, accessCode: "sAWTuR" }),
+});
 
-      if (!response.ok) {
-        throw new Error("Failed to shorten URL");
-      }
+      if (!response.ok) throw new Error("Could not shorten URL");
 
       const data = await response.json();
-      setShortUrls([...shortUrls, data]);
+      setShortened([...shortened, { original: url, short: data.shortUrl }]);
       setUrl("");
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Error: Could not shorten URL");
+    } catch (err) {
+      alert("Error: " + err.message);
     }
   };
 
   return (
-    <div style={{ padding: "20px", maxWidth: "600px", margin: "auto" }}>
-      <h1>🔗 URL Shortener</h1>
+    <div style={{ padding: "30px", fontFamily: "Arial" }}>
+      <h1>URL Shortener Web App</h1>
       <form onSubmit={handleSubmit}>
         <input
-          type="url"
+          type="text"
           placeholder="Enter URL"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          required
-          style={{ width: "70%", padding: "10px" }}
+          style={{ width: "400px", padding: "10px" }}
         />
-        <button type="submit" style={{ padding: "10px 20px", marginLeft: "10px" }}>
+        <button type="submit" style={{ marginLeft: "10px", padding: "10px" }}>
           Shorten
         </button>
       </form>
 
-      <h2 style={{ marginTop: "20px" }}>Shortened Links</h2>
+      <h2>Shortened Links</h2>
       <ul>
-        {shortUrls.map((item, index) => (
-          <li key={index}>
-            <a href={item.shortUrl} target="_blank" rel="noreferrer">
-              {item.shortUrl}
-            </a>{" "}
-            → {item.originalUrl}
+        {shortened.map((item, i) => (
+          <li key={i}>
+            Original: {item.original} <br />
+            Short:{" "}
+            <a href={item.short} target="_blank" rel="noreferrer">
+              {item.short}
+            </a>
           </li>
         ))}
       </ul>

@@ -1,12 +1,16 @@
 import React from "react";
-import ShortenerPage from "./pages/ShortenerPage.jsx";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ShortenerPage from "./pages/ShortenerPage";
+import RedirectRouter from "./pages/RedirectRouter";
 
 function App() {
   return (
-    <div style={{ padding: "2rem", fontFamily: "Arial" }}>
-      <h1>URL Shortener Web App</h1>
-      <ShortenerPage />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<ShortenerPage />} />
+        <Route path="/:id" element={<RedirectRouter />} />
+      </Routes>
+    </Router>
   );
 }
 
