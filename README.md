@@ -19,6 +19,8 @@ This project allows users to shorten long URLs into compact links and then redir
 - **Middleware**: Logging Middleware for requests  
 
 ## 📸Screenshots
+<img width="1054" height="579" alt="Screenshot 2025-09-09 221149" src="https://github.com/user-attachments/assets/a7dd205a-ecb3-4844-affb-e84258e545a4" />
+<img width="1021" height="527" alt="Screenshot 2025-09-09 221211" src="https://github.com/user-attachments/assets/6d9eacc9-bd57-48b0-9a04-92bb440aab1f" />
 
 ## 👩‍💻 Author
 - Developed by [Aadhya Nigam](https://github.com/AadhyaNigam)
