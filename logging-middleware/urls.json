@@ -8,5 +8,15 @@
   {
     "id": "maxotk",
     "url": "https://www.geeksforgeeks.org/computer-networks/computer-network-tutorials/"
+  },
+  {
+    "shortCode": "betiyd",
+    "originalUrl": "https://www.geeksforgeeks.org/computer-networks/computer-network-tutorials/",
+    "shortUrl": "http://localhost:5000/betiyd"
+  },
+  {
+    "shortCode": "i32ejg",
+    "originalUrl": "https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/8D79F3AVR7",
+    "shortUrl": "http://localhost:5000/i32ejg"
   }
 ]
